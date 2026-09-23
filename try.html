@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS 屬性名稱字典 (支援即時搜尋)</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --bg-light: #f8f9fa;
+            --text-dark: #333333;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* 側邊導覽列 */
+        aside {
+            width: 260px;
+            height: 100vh;
+            background-color: var(--bg-light);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        aside h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 5px;
+        }
+
+        aside ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        aside li {
+            margin-bottom: 8px;
+        }
+
+        aside a {
+            text-decoration: none;
+            color: #555;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        aside a:hover {
+            color: var(--secondary);
+        }
+
+        /* 主要內容區 */
+        main {
+            margin-left: 260px;
+            padding: 40px;
+            max-width: 1000px;
+            width: calc(100% - 260px);
+        }
+
+        header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #666;
+        }
+
+        /* 搜尋框樣式 */
+        .search-container {
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            padding: 10px 0;
+            z-index: 10;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        h2.section-title {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary) 0%, #fff 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+        }
+
+        h3.sub-title {
+            color: var(--secondary);
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            border-left: 4px solid var(--secondary);
+            padding-left: 10px;
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-light);
+            color: var(--primary);
+            font-weight: 600;
+            width: 30%;
+        }
+
+        td code {
+            background-color: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-weight: bold;
+            color: #e06c75;
+        }
+
+        tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* 無搜尋結果提示 */
+        .no-results {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            color: #888;
+            font-size: 1.1rem;
+            background-color: var(--bg-light);
+            border-radius: 6px;
+        }
+
+        /* 響應式排版 */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            aside {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 側邊目錄 -->
+    <aside>
+        <h2>HTML 標籤</h2>
+        <ul>
+            <li><a href="#html-struct">1. 網頁基本結構</a></li>
+            <li><a href="#html-semantic">2. 語意化區塊</a></li>
+            <li><a href="#html-text">3. 內容與文字格式</a></li>
+            <li><a href="#html-list">4. 清單與表格</a></li>
+            <li><a href="#html-media">5. 多媒體與超連結</a></li>
+            <li><a href="#html-form">6. 表單與輸入</a></li>
+        </ul>
+        <h2>CSS 屬性</h2>
+        <ul>
+            <li><a href="#css-text">1. 文字與字型</a></li>
+            <li><a href="#css-box">2. 盒模型</a></li>
+            <li><a href="#css-bg">3. 背景與顏色</a></li>
+            <li><a href="#css-pos">4. 定位與顯示</a></li>
+            <li><a href="#css-layout">5. 現代排版佈局</a></li>
+            <li><a href="#css-anim">6. 動態與轉場</a></li>
+        </ul>
+    </aside>
+
+    <!-- 主要內容區 -->
+    <main>
+        <header>
+            <h1>HTML & CSS 屬性名稱字典</h1>
+            <p>前端開發必備的常用標籤與基礎屬性語法速查表。</p>
+        </header>
+
+        <!-- 搜尋欄位區區塊 -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 輸入關鍵字搜尋標籤或屬性名稱（如：flex、font、圖片...）">
+        </div>
+
+        <div id="noResultsMessage" class="no-results">找不到符合條件的標籤或屬性 😢</div>
+
+        <!-- ================= HTML 區塊 ================= -->
+        <div class="content-group">
+            <h2 id="html-section" class="section-title">📂 HTML 常用標籤字典</h2>
+
+            <div class="sub-section">
+                <h3 id="html-struct" class="sub-title">1. 網頁基本結構 (Document Structure)</h3>
+                <table>
+                    <thead><tr><th>標籤名稱</th><th>用途說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>&lt;html&gt;</code></td><td>網頁根元素，包含整個網頁內容。</td></tr>
+                        <tr><td><code>&lt;head&gt;</code></td><td>存放網頁後台資訊（如編碼、標題、CSS 連結）。</td></tr>
+                        <tr><td><code>&lt;title&gt;</code></td><td>定義網頁在瀏覽器分頁上顯示的標題。</td></tr>
+                        <tr><td><code>&lt;body&gt;</code></td><td>網頁可見內容的主要區塊。</td></tr>
+                        <tr><td><code>&lt;meta&gt;</code></td><td>定義網頁元數據（如 RWD 設定、關鍵字、編碼）。</td></tr>
+                        <tr><td><code>&lt;link&gt;</code></td><td>引入外部檔案（如 CSS 樣式表、網站圖示）。</td></tr>
+                        <tr><td><code>&lt;script&gt;</code></td><td>引入或撰寫 JavaScript 腳本。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sub-section">
+                <h3 id="html-semantic" class="sub-title">2. 語意化區塊 (Semantic Elements)</h3>
+                <table>
+                    <thead><tr><th>標籤名稱</th><th>用途說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>&lt;header&gt;</code></td><td>網頁或特定區塊的頁首（頁頭導覽）。</td></tr>
+                        <tr><td><code>&lt;nav&gt;</code></td><td>定義導覽列連結的區塊。</td></tr>
+                        <tr><td><code>&lt;main&gt;</code></td><td>網頁的主要獨特內容（一個頁面僅限一個）。</td></tr>
+                        <tr><td><code>&lt;article&gt;</code></td><td>獨立、完整的文章、新聞或部落格內容區塊。</td></tr>
+                        <tr><td><code>&lt;section&gt;</code></td><td>一般性的分段主題區塊。</td></tr>
+                        <tr><td><code>&lt;aside&gt;</code></td><td>側邊欄、廣告或與主要內容間接相關的附帶資訊。</td></tr>
+                        <tr><td><code>&lt;footer&gt;</code></td><td>網頁或區塊的頁尾（版權宣告、聯絡資訊）。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sub-section">
+                <h3 id="html-text" class="sub-title">3. 內容與文字格式 (Text Content)</h3>
+                <table>
+                    <thead><tr><th>標籤名稱</th><th>用途說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>&lt;div&gt;</code></td><td>無語意的區塊級標籤（常用於排版與分組）。</td></tr>
+                        <tr><td><code>&lt;span&gt;</code></td><td>無語意的行內級標籤（常用於設定局部文字樣式）。</td></tr>
+                        <tr><td><code>&lt;h1&gt; ~ &lt;h6&gt;</code></td><td>網頁標題，由大 (h1) 到小 (h6)。</td></tr>
+                        <tr><td><code>&lt;p&gt;</code></td><td>定義文字段落。</td></tr>
+                        <tr><td><code>&lt;br&gt;</code></td><td>強制文字換行。</td></tr>
+                        <tr><td><code>&lt;hr&gt;</code></td><td>產生一條水平分隔線。</td></tr>
+                        <tr><td><code>&lt;strong&gt;</code></td><td>粗體文字（具重要性語意，非單純視覺加粗）。</td></tr>
+                        <tr><td><code>&lt;em&gt;</code></td><td>斜體文字（具強調語意）。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="sub-section">
+                <h3 id="html-list" class="sub-title">4. 清單與表格 (Lists & Tables)</h3>
+                <table>
+                    <thead><tr><th>標籤名稱</th><th>用途說明</th></tr></thead>
+                    <tbody>
+                        <tr><td><code>&lt;ul&gt;</code></td><td>無序清單（項目符號呈現）。</td></tr>
+
+
+                        <td><code><ol>有序清單（數字編號呈現）。
+<td><code><li>清單項目（放在 ul 或 ol 內部）。
+<td><code><table>
+定義表格外框。
+<td><code><tr>表格列 (Row)。
+<td><code><th>表格標題單元格 (Header，文字預設加粗置中)。
+<td><code><td>表格資料單元格 (Data)。
+5. 多媒體與超連結 (Media & Links)
+
+標籤名稱用途說明<a>超連結（使用 href 屬性指定目的地網址）。<img>圖片標籤（src 引入路徑，alt 填寫替代文字）。<video>影片播放器。<audio>音訊播放器。
+6. 表單與輸入 (Forms & Inputs)
+標籤名稱用途說明<form>定義表單區域，包裹所有輸入欄位。<input>輸入欄位（透過 type 改變型態如 text, password, checkbox）。<textarea>多行文字輸入區域（適合留言、備註）。<button>按鈕元素.<select>下拉式選單的外框。<option>下拉式選單內的各個選項。<label>輸入欄位的文字標籤（點擊可觸發關聯的輸入框）。
+🎨 CSS 常用屬性字典
+1. 文字與字型樣式 (Typography)
+屬性名稱用途說明color文字顏色（可使用顏色名稱、Hex十六進位、RGB/RGBA）。font-size字體大小（常用單位：px, rem, em, %）。font-family字體種類（可指定多個備用字體）。font-weight字體粗細（如 normal, bold，或數值 100~900）。text-align文字對齊方式（left, center, right, justify）。text-decoration文字裝飾（常用 none 消除超連結底線，或 underline）。line-height行高（可用比例或 px 調整，影響段落上下文字間距）。letter-spacing字距（調整文字與文字間的水平間隔）。
+2. 盒模型 (Box Model)
+屬性名稱用途說明width / height物件的寬度與高度。padding內邊距（內容與物件邊框之間的距離）。margin外邊距（物件與鄰近其他物件之間的距離）。border邊框樣式複合屬性（例如：1px solid black）。border-radius圓角效果（設定為 50% 可將正方形變成圓形）。box-sizing外框計算模式（推薦 border-box，內邊距與邊框不撐大總寬）。
+3. 背景與顏色 (Background & Colors)
+屬性名稱用途說明background-color背景顏色。background-image背景圖片（使用 url('路徑') 引入）。background-size背景圖片尺寸（常用 cover 鋪滿、contain 完整顯現）。background-position背景圖片基準位置（如 center, top right）。background-repeat背景圖片重複設定（常用 no-repeat 防止平鋪）。opacity整體不透明度（範圍 0.0 到 1.0）。
+4. 定位與顯示 (Layout & Positioning)
+屬性名稱用途說明display顯現模式（block 區塊, inline 行內, inline-block, none 隱藏）。position定位方式（relative 相對、absolute 絕對、fixed 固定、sticky 黏性）。top/bottom/left/right搭配定位後的偏移距離。z-index層疊權重數值（數值越大越疊在上方，須配合 position 使用）。overflow內容溢出區塊時的處理（hidden 隱藏, scroll 滾輪, auto）。
+5. 現代排版佈局 (Modern Layouts)
+屬性名稱用途說明display: flex啟用 Flexbox 彈性排版，控制一維軸線布局。flex-direction彈性軸線方向（row 水平、column 垂直）。justify-content主軸對齊方式（center, space-between, flex-start）。align-items交叉軸對齊方式（center, flex-start, flex-end）。gap元件與元件之間的間距（不需寫 margin 即可輕鬆推開間距）。display: grid啟用 Grid 網格排版，控制二維（行列）巨觀布局。
+6. 動態與轉場 (Transitions & Animations)
+屬性名稱用途說明transition轉場平滑動畫效果（例如：all 0.3s ease）。transform變形效果（如 translate() 位移、rotate() 轉動、scale() 縮放）。animationCSS 進階動畫效果（需綁定 @keyframes 關鍵影格）。cursor滑鼠移入時的游標樣式（常用 pointer 呈現點擊手勢）。
+document.getElementById('searchInput').addEventListener('input', function(e) {
+const filter = e.target.value.toLowerCase().trim();
+const subSections = document.querySelectorAll('.sub-section');
+const contentGroups = document.querySelectorAll('.content-group');
+let hasAnyVisible = false;
+subSections.forEach(section => {
+const rows = section.querySelectorAll('tbody tr');
+let hasVisibleRow = false;
+rows.forEach(row => {
+const text = row.innerText.toLowerCase();
+if (text.includes(filter)) {
+row.style.display = '';
+hasVisibleRow = true;
+} else {
+row.style.display = 'none';
+}
+});
+// 如果這個子分類下有符合的資料就顯示，否則把整個子分類（含標題與表格）隱藏
+if (hasVisibleRow) {
+section.style.display = '';
+hasAnyVisible = true;
+} else {
+section.style.display = 'none';
+}
+});
+// 檢查主群組（HTML 字典 / CSS 字典）內是否還有留存內容，沒有就隱藏主標題
+contentGroups.forEach(group => {
+const visibleSubsections = group.querySelectorAll('.sub-section[style=""]');
+const allSubsections = group.querySelectorAll('.sub-section');
+// 如果所有的子區塊都被隱藏了，那大標題也隱藏
+if (visibleSubsections.length === 0 && filter !== '') {
+// 另外檢查是不是真的都隱藏了
+let totalVisible = 0;
+allSubsections.forEach(s => { if(s.style.display !== 'none') totalVisible++; });
+if(totalVisible === 0) {
+group.querySelector('.section-title').style.display = 'none';
+}
+} else {
+group.querySelector('.section-title').style.display = '';
+}
+});
+// 顯示或隱藏「找不到結果」的提示訊息
+const noResultsMessage = document.getElementById('noResultsMessage');
+if (hasAnyVisible) {
+noResultsMessage.style.display = 'none';
+} else {
+noResultsMessage.style.display = 'block';
+}
+});
+
+
